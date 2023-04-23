@@ -12,8 +12,7 @@ const { GoogleRouter } = require("./routes/GoogleAuth.route");
 
 
 const app = express();
-// app.use(cors('*'))
-// app.use(cors('http:/127.0.0.1:5500'))
+
 app.use(cors({
   origin: "https://orange-fry-backend.vercel.app",
   mehtods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
