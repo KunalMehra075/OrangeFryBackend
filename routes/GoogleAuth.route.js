@@ -6,7 +6,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken")
 const { UserModel } = require("../models/users.model");
 
-let HOST = "https://orange-fry-backend.vercel.app"
+let HOST = "https://orangefry.netlify.app"
 
 require("../configs/GoogleAuth/passport-setup")
 GoogleRouter.get('/', passport.authenticate('google', { scope: ['email', "profile"] }));

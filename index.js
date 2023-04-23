@@ -14,7 +14,7 @@ const { GoogleRouter } = require("./routes/GoogleAuth.route");
 const app = express();
 
 app.use(cors({
-  origin: "https://orange-fry-backend.vercel.app",
+  origin: "https://orangefry.netlify.app",
   mehtods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Content-Type', "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
   credentials: true
