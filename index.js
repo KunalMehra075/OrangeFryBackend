@@ -2,15 +2,35 @@ const express = require("express");
 const { connection } = require("./configs/db");
 const { productRouter } = require("./routes/product.route");
 const { userRouter } = require("./routes/user.route");
-const { logger } = require("./middlewares/logger.middleware");
+const passport = require("passport")
 const { ReviewRouter } = require("./routes/review.route");
 const { CartRouter } = require("./routes/cart.route");
 const { FavoriteRouter } = require("./routes/favorite.route");
+const cookieSession = require("cookie-session")
 const cors = require("cors");
+const { GoogleRouter } = require("./routes/GoogleAuth.route");
+
 
 const app = express();
-app.use(cors("*"));
+// app.use(cors('*'))
+// app.use(cors('http:/127.0.0.1:5500'))
+app.use(cors({
+  origin: "https://orange-fry-backend.vercel.app",
+  mehtods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"],
+  credentials: true
+}));
 app.use(express.json());
+
+app.use(cookieSession({
+  name: 'google-auth-session',
+  keys: ["key1", "key2"],
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use("/google", GoogleRouter)
 app.use("/users", userRouter);
 app.use("/products", productRouter);
 app.use("/reviews", ReviewRouter);
