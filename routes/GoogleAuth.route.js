@@ -37,7 +37,7 @@ GoogleRouter.get('/auth/google/success', async (req, res) => {
         let user2 = await UserModel.find({ name: googledata.name });
         if (user1.length || user2.length) {
             console.log("FoundInDB", user1[0] || user2[0])//!----> User Already Exists in DB  
-            res.redirect(`${HOST}/OrangeFryFrontend/success.html?successId="${user2[0]._id}"`)
+            res.redirect(`${HOST}/success.html?successId="${user2[0]._id}"`)
         } else {
             bcrypt.hash(googledata.pass, 5, async function (err, hash) {
                 if (hash) {
@@ -45,23 +45,23 @@ GoogleRouter.get('/auth/google/success', async (req, res) => {
                     const instance = new UserModel(googledata);
                     await instance.save();
                     console.log("NewCreated", instance)//!----> New User Created in DB by google
-                    res.redirect(`${HOST}/OrangeFryFrontend/success.html?successId="${instance._id}"`)
+                    res.redirect(`${HOST}/success.html?successId="${instance._id}"`)
                 } else {
                     console.log(err);
-                    res.redirect(`${HOST}/OrangeFryFrontend/failure.html?failure="${err.message.join("+")}"`)
+                    res.redirect(`${HOST}/failure.html?failure="${err.message.join("+")}"`)
                 }
             });
         }
     } catch (error) {
         console.log(error);
-        res.redirect(`${HOST}/OrangeFryFrontend/failure.html?failure="${err.message.join("+")}"`)
+        res.redirect(`${HOST}/failure.html?failure="${err.message.join("+")}"`)
     }
 
 });
 
 // !GOOGLE AUTH FAILURE
 GoogleRouter.get('/auth/google/failure', (req, res) => {
-    res.redirect(`${HOST}/OrangeFryFrontend/failure.html`)
+    res.redirect(`${HOST}/failure.html`)
 })
 
 
