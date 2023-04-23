@@ -9,6 +9,7 @@ const { UserModel } = require("../models/users.model");
 let HOST = "https://orangefry.netlify.app"
 
 require("../configs/GoogleAuth/passport-setup")
+
 GoogleRouter.get('/', passport.authenticate('google', { scope: ['email', "profile"] }));
 
 GoogleRouter.get('/callback',
@@ -16,6 +17,7 @@ GoogleRouter.get('/callback',
         successRedirect: '/google/auth/google/success',
         failureRedirect: '/google/auth/google/failure'
     })
+
 );
 // !GOOGLE AUTH SUCCESS
 GoogleRouter.get('/auth/google/success', async (req, res) => {
